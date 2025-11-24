@@ -2,42 +2,33 @@
 <html lang="de">
   <head>
     <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>KI-Exposé-Generator</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
 
+    <!-- Tailwind CSS CDN -->
     <link
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"
     />
-
-    <style>
-      body {
-        font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
-          sans-serif;
-      }
-      .gradient-header {
-        background: linear-gradient(90deg, #0f4fb8, #1c7ed6);
-      }
-      .required::after {
-        content: " *";
-        color: #e03131;
-      }
-    </style>
   </head>
 
   <body class="bg-gray-100">
     <div class="min-h-screen py-10">
-      <div class="max-w-5xl mx-auto bg-white shadow-xl rounded-xl overflow-hidden">
-        <div class="gradient-header px-6 md:px-10 py-6">
-          <h1 class="text-2xl md:text-3xl font-semibold text-white">
+      <div
+        class="max-w-5xl mx-auto bg-white shadow-xl rounded-xl overflow-hidden"
+      >
+        <!-- Header -->
+        <div class="bg-gradient-to-r from-blue-600 to-blue-500 px-8 py-6">
+          <h1 class="text-3xl md:text-4xl font-bold text-white">
             KI-Exposé-Generator
           </h1>
-          <p class="mt-2 text-sm md:text-base text-blue-100 max-w-2xl">
+          <p class="text-blue-100 mt-2 max-w-2xl">
             Bitte geben Sie die Objektdaten ein. Das Exposé wird automatisch
             generiert und per E-Mail versendet.
           </p>
         </div>
 
+        <!-- FORMULARBEREICH -->
         <div class="px-6 md:px-10 py-8">
           <form
             id="exposeForm"
@@ -45,349 +36,312 @@
             action="https://xelasrn.app.n8n.cloud/webhook/expose-generator"
             class="space-y-10"
           >
+            <!-- 1. Grunddaten -->
             <section>
-              <h2 class="text-lg font-semibold border-l-4 border-blue-600 pl-3 mb-6">
+              <h2
+                class="text-xl font-semibold border-l-4 border-blue-500 pl-3 mb-4"
+              >
                 1. Grunddaten
               </h2>
 
               <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
-                  <label class="required block text-sm font-medium text-gray-700 mb-1">
-                    Objektart
-                  </label>
+                  <label class="block font-medium mb-1">Objektart *</label>
                   <input
                     required
                     name="objektart"
-                    type="text"
-                    class="w-full border rounded-md px-3 py-2"
+                    class="w-full border rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-500"
                     placeholder="z. B. Wohnung, Haus, Penthouse"
                   />
                 </div>
 
                 <div>
-                  <label class="required block text-sm font-medium text-gray-700 mb-1">
-                    Vermarktungsart
-                  </label>
+                  <label class="block font-medium mb-1"
+                    >Vermarktungsart *</label
+                  >
                   <input
                     required
                     name="vermarktung"
-                    type="text"
-                    class="w-full border rounded-md px-3 py-2"
+                    class="w-full border rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-500"
                     placeholder="z. B. Verkauf, Vermietung"
                   />
                 </div>
 
-                <div>
-                  <label class="required block text-sm font-medium text-gray-700 mb-1">
-                    Adresse
-                  </label>
+                <div class="md:col-span-2">
+                  <label class="block font-medium mb-1">Adresse *</label>
                   <input
                     required
                     name="adresse"
-                    type="text"
-                    class="w-full border rounded-md px-3 py-2"
-                    placeholder="Straße, Nr., Ort"
+                    class="w-full border rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-500"
+                    placeholder="Straße, Hausnummer, PLZ, Ort"
                   />
                 </div>
 
                 <div>
-                  <label class="block text-sm font-medium text-gray-700 mb-1">
-                    Stadtteil
-                  </label>
+                  <label class="block font-medium mb-1">Stadtteil</label>
                   <input
                     name="stadtteil"
-                    type="text"
-                    class="w-full border rounded-md px-3 py-2"
-                    placeholder="z. B. Lapta, Girne"
+                    class="w-full border rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-500"
+                    placeholder="z. B. Lapta, Zentrum, Altstadt"
                   />
                 </div>
 
                 <div>
-                  <label class="required block text-sm font-medium text-gray-700 mb-1">
-                    Wohnfläche (m²)
-                  </label>
+                  <label class="block font-medium mb-1"
+                    >Wohnfläche (m²) *</label
+                  >
                   <input
                     required
-                    name="wohnflaeche"
                     type="number"
+                    min="0"
                     step="0.1"
-                    class="w-full border rounded-md px-3 py-2"
-                    placeholder="z. B. 95"
+                    name="wohnflaeche"
+                    class="w-full border rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-500"
+                    placeholder="z. B. 85"
                   />
                 </div>
 
                 <div>
-                  <label class="required block text-sm font-medium text-gray-700 mb-1">
-                    Zimmer
-                  </label>
+                  <label class="block font-medium mb-1">Zimmer *</label>
                   <input
                     required
                     name="zimmer"
-                    type="text"
-                    class="w-full border rounded-md px-3 py-2"
-                    placeholder="z. B. 2+1"
+                    class="w-full border rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-500"
+                    placeholder="z. B. 2+1, 3+1"
                   />
                 </div>
 
                 <div>
-                  <label class="block text-sm font-medium text-gray-700 mb-1">
-                    Etage
-                  </label>
+                  <label class="block font-medium mb-1">Etage</label>
                   <input
                     name="etage"
-                    type="text"
-                    class="w-full border rounded-md px-3 py-2"
+                    class="w-full border rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-500"
                     placeholder="z. B. 3. OG, Penthouse"
                   />
                 </div>
 
                 <div>
-                  <label class="required block text-sm font-medium text-gray-700 mb-1">
-                    Zustand
-                  </label>
+                  <label class="block font-medium mb-1">Zustand *</label>
                   <input
                     required
                     name="zustand"
-                    type="text"
-                    class="w-full border rounded-md px-3 py-2"
-                    placeholder="z. B. Neubau, gepflegt, renoviert"
+                    class="w-full border rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-500"
+                    placeholder="z. B. Neubau, renoviert, luxuriös"
                   />
                 </div>
 
                 <div>
-                  <label class="block text-sm font-medium text-gray-700 mb-1">
-                    Grundstücksfläche (m²)
-                  </label>
+                  <label class="block font-medium mb-1"
+                    >Grundstücksfläche (m²)</label
+                  >
                   <input
-                    name="grundstuecksflaeche"
                     type="number"
-                    class="w-full border rounded-md px-3 py-2"
+                    min="0"
+                    step="0.1"
+                    name="grundstuecksflaeche"
+                    class="w-full border rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-500"
                     placeholder="falls relevant"
                   />
                 </div>
-
-                <div>
-                  <label class="block text-sm font-medium text-gray-700 mb-1">
-                    Baujahr
-                  </label>
-                  <input
-                    name="baujahr"
-                    type="text"
-                    class="w-full border rounded-md px-3 py-2"
-                    placeholder="z. B. 2020"
-                  />
-                </div>
               </div>
             </section>
 
+            <!-- 2. Preis & Konditionen -->
             <section>
-              <h2 class="text-lg font-semibold border-l-4 border-blue-600 pl-3 mb-6">
-                2. Preis &amp; Konditionen
+              <h2
+                class="text-xl font-semibold border-l-4 border-blue-500 pl-3 mb-4"
+              >
+                2. Preis & Konditionen
               </h2>
 
               <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
-                  <label class="required block text-sm font-medium text-gray-700 mb-1">
-                    Preis (€)
-                  </label>
+                  <label class="block font-medium mb-1">Preis (€) *</label>
                   <input
                     required
+                    type="number"
+                    min="0"
+                    step="1000"
                     name="preis"
-                    type="text"
-                    class="w-full border rounded-md px-3 py-2"
-                    placeholder="z. B. 325.000"
+                    class="w-full border rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-500"
+                    placeholder="z. B. 325000"
                   />
                 </div>
 
                 <div>
-                  <label class="block text-sm font-medium text-gray-700 mb-1">
-                    Nebenkosten (mtl.)
-                  </label>
+                  <label class="block font-medium mb-1"
+                    >Nebenkosten (mtl., geschätzt)</label
+                  >
                   <input
                     name="nebenkosten"
-                    type="text"
-                    class="w-full border rounded-md px-3 py-2"
-                    placeholder="z. B. Hausgeld"
+                    class="w-full border rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-500"
+                    placeholder="z. B. Hausgeld, Verwaltung, Pool"
                   />
                 </div>
 
                 <div>
-                  <label class="block text-sm font-medium text-gray-700 mb-1">
-                    Verfügbar ab
-                  </label>
+                  <label class="block font-medium mb-1">Verfügbar ab</label>
                   <input
                     name="verfuegbar_ab"
-                    type="text"
-                    class="w-full border rounded-md px-3 py-2"
-                    placeholder="z. B. ab sofort"
+                    class="w-full border rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-500"
+                    placeholder="z. B. sofort, ab 01.03.2026"
                   />
                 </div>
               </div>
             </section>
 
+            <!-- 3. Lage & Highlights -->
             <section>
-              <h2 class="text-lg font-semibold border-l-4 border-blue-600 pl-3 mb-6">
-                3. Lage &amp; Highlights
+              <h2
+                class="text-xl font-semibold border-l-4 border-blue-500 pl-3 mb-4"
+              >
+                3. Lage & Highlights
               </h2>
 
-              <div class="space-y-6">
-                <div>
-                  <label class="block text-sm font-medium text-gray-700 mb-1">
-                    Umgebung
-                  </label>
-                  <textarea
-                    name="umgebung"
-                    rows="3"
-                    class="w-full border rounded-md px-3 py-2"
-                    placeholder="z. B. ruhige Lage, Nähe zum Meer, Restaurants…"
-                  ></textarea>
-                </div>
-
-                <div>
-                  <label class="block text-sm font-medium text-gray-700 mb-1">
-                    Highlights
-                  </label>
-                  <textarea
-                    name="highlights"
-                    rows="3"
-                    class="w-full border rounded-md px-3 py-2"
-                    placeholder="z. B. Meerblick, Pool, Concierge…"
-                  ></textarea>
-                </div>
-              </div>
+              <textarea
+                required
+                name="umgebung_highlights"
+                class="w-full border rounded-lg px-3 py-2 h-28 resize-y focus:ring-2 focus:ring-blue-500"
+                placeholder="Meerblick, fußläufig zum Strand, Restaurants, Supermärkte, Schule, ruhige Anlage, Pool, Fitness ..."
+              ></textarea>
             </section>
 
+            <!-- 4. Energie -->
             <section>
-              <h2 class="text-lg font-semibold border-l-4 border-blue-600 pl-3 mb-6">
+              <h2
+                class="text-xl font-semibold border-l-4 border-blue-500 pl-3 mb-4"
+              >
                 4. Energie
               </h2>
 
-              <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div>
-                  <label class="block text-sm font-medium text-gray-700 mb-1">
-                    Energieausweis
-                  </label>
+              <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="md:col-span-2">
+                  <label class="block font-medium mb-1">Energieausweis</label>
                   <input
                     name="energieausweis"
-                    type="text"
-                    class="w-full border rounded-md px-3 py-2"
+                    class="w-full border rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-500"
                     placeholder="z. B. Bedarfsausweis"
                   />
                 </div>
 
                 <div>
-                  <label class="block text-sm font-medium text-gray-700 mb-1">
-                    Energiekennwert
-                  </label>
+                  <label class="block font-medium mb-1"
+                    >Energiekennwert (kWh/(m²·a))</label
+                  >
                   <input
                     name="energiekennwert"
-                    type="text"
-                    class="w-full border rounded-md px-3 py-2"
+                    class="w-full border rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-500"
                     placeholder="z. B. 45"
                   />
                 </div>
 
                 <div>
-                  <label class="block text-sm font-medium text-gray-700 mb-1">
-                    Energieeffizienzklasse
-                  </label>
+                  <label class="block font-medium mb-1"
+                    >Energieeffizienzklasse</label
+                  >
                   <input
                     name="energieeffizienzklasse"
-                    type="text"
-                    class="w-full border rounded-md px-3 py-2"
-                    placeholder="z. B. A"
+                    class="w-full border rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-500"
+                    placeholder="z. B. A+, A, B"
                   />
                 </div>
               </div>
             </section>
 
+            <!-- 5. Ansprechpartner -->
             <section>
-              <h2 class="text-lg font-semibold border-l-4 border-blue-600 pl-3 mb-6">
+              <h2
+                class="text-xl font-semibold border-l-4 border-blue-500 pl-3 mb-4"
+              >
                 5. Ansprechpartner
               </h2>
 
               <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
-                  <label class="required block text-sm font-medium text-gray-700 mb-1">
-                    Kontaktperson
-                  </label>
+                  <label class="block font-medium mb-1">Kontaktperson *</label>
                   <input
                     required
                     name="kontaktperson"
-                    type="text"
-                    class="w-full border rounded-md px-3 py-2"
-                    placeholder="Name"
+                    class="w-full border rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-500"
+                    placeholder="z. B. Max Mustermann"
                   />
                 </div>
 
                 <div>
-                  <label class="block text-sm font-medium text-gray-700 mb-1">
-                    Telefon
-                  </label>
+                  <label class="block font-medium mb-1">Telefon</label>
                   <input
                     name="telefon"
-                    type="text"
-                    class="w-full border rounded-md px-3 py-2"
-                    placeholder="z. B. +49 ..."
+                    class="w-full border rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-500"
+                    placeholder="+49 ..."
                   />
                 </div>
 
                 <div class="md:col-span-2">
-                  <label class="required block text-sm font-medium text-gray-700 mb-1">
-                    E-Mail
-                  </label>
+                  <label class="block font-medium mb-1">E-Mail *</label>
                   <input
                     required
-                    name="email"
                     type="email"
-                    class="w-full border rounded-md px-3 py-2"
-                    placeholder="An diese Adresse wird das Exposé gesendet"
+                    name="email"
+                    class="w-full border rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-500"
+                    placeholder="An diese Adresse wird das Exposé gesendet."
                   />
                 </div>
               </div>
             </section>
 
+            <!-- 6. Notizen -->
             <section>
-              <h2 class="text-lg font-semibold border-l-4 border-blue-600 pl-3 mb-6">
+              <h2
+                class="text-xl font-semibold border-l-4 border-blue-500 pl-3 mb-4"
+              >
                 6. Notizen
               </h2>
 
-              <div>
-                <label class="block text-sm font-medium text-gray-700 mb-1">
-                  Besondere Hinweise
-                </label>
-                <textarea
-                  name="notizen"
-                  rows="3"
-                  class="w-full border rounded-md px-3 py-2"
-                  placeholder="Besondere Merkmale, Bedingungen, Zielgruppe etc."
-                ></textarea>
-              </div>
+              <textarea
+                name="notizen"
+                class="w-full border rounded-lg px-3 py-2 h-28 resize-y focus:ring-2 focus:ring-blue-500"
+                placeholder="Besondere Hinweise oder interne Notizen."
+              ></textarea>
             </section>
 
-            <div class="pt-4 border-t flex flex-col md:flex-row md:justify-between gap-3">
+            <!-- Absenden -->
+            <div
+              class="pt-4 flex items-center justify-between flex-wrap gap-4"
+            >
               <button
                 type="submit"
-                class="px-6 py-2.5 rounded-md bg-blue-600 text-white font-medium shadow hover:bg-blue-700"
+                class="bg-blue-600 hover:bg-blue-700 text-white font-semibold px-6 py-3 rounded-lg shadow"
               >
                 Exposé erstellen
               </button>
-              <p class="text-xs text-gray-500">
-                Ihre Daten werden ausschließlich zur Erstellung des Exposés verwendet.
+
+              <p class="text-xs text-gray-500 max-w-md">
+                Die Daten werden ausschließlich für die Exposé-Erstellung
+                verwendet und über deinen gesicherten n8n-Workflow
+                verarbeitet.
               </p>
             </div>
           </form>
+
+          <!-- Statusmeldung -->
+          <div id="statusMessage" class="mt-4 text-sm text-gray-600 hidden">
+            Formular wird übertragen … Bitte Fenster nicht schließen.
+          </div>
         </div>
       </div>
     </div>
 
     <script>
       const form = document.getElementById("exposeForm");
-      form.addEventListener("submit", function () {
-        const btn = form.querySelector("button[type='submit']");
-        btn.innerText = "Exposé wird erstellt...";
-        btn.disabled = true;
-      });
+      const statusEl = document.getElementById("statusMessage");
+
+      if (form && statusEl) {
+        form.addEventListener("submit", () => {
+          statusEl.classList.remove("hidden");
+          statusEl.textContent =
+            "Formular wird übertragen … Bitte Fenster nicht schließen.";
+        });
+      }
     </script>
   </body>
 </html>
