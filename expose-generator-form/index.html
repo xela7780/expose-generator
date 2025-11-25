@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>KI-Exposé-Generator</title>
 
-  <!-- Tailwind CSS -->
+  <!-- Tailwind CSS via CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
 
   <style>
@@ -23,33 +23,72 @@
       <header class="bg-gradient-to-r from-blue-600 to-blue-500 px-8 py-6 border-b border-blue-700">
         <h1 class="text-4xl font-bold text-white">KI-Exposé-Generator</h1>
         <p class="text-blue-100 text-lg mt-2">
-          Bitte füllen Sie die folgenden Daten aus. Die Exposé-PDF wird automatisch erzeugt und per E-Mail versendet.
+          Bitte füllen Sie die folgenden Daten aus. Das Exposé und das PDF werden automatisch erstellt.
         </p>
       </header>
 
-      <!-- FORMULAR -->
+      <!-- FORM START -->
       <form
         id="exposeForm"
         method="POST"
         action="https://xelasrn.app.n8n.cloud/webhook/expose-generator"
         class="px-10 py-10 space-y-16"
       >
-        <!-- 1. GRUNDDATEN -->
+
+        <!-- SECTION 1: KONTAKT & GRUNDDATEN -->
         <section>
-          <h2 class="text-3xl font-bold text-blue-600 mb-6">1. Grunddaten</h2>
+          <h2 class="text-3xl font-bold text-blue-600 mb-6">1. Kontakt & Grunddaten</h2>
 
           <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+
+            <!-- Kontaktperson -->
+            <div>
+              <label class="block font-medium text-gray-700 mb-1">Kontaktperson *</label>
+              <input
+                required
+                type="text"
+                name="kontaktperson"
+                class="w-full border rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-500"
+                placeholder="z. B. Max Mustermann"
+              />
+            </div>
+
+            <!-- E-Mail -->
+            <div>
+              <label class="block font-medium text-gray-700 mb-1">E-Mail *</label>
+              <input
+                required
+                type="email"
+                name="email"
+                class="w-full border rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-500"
+                placeholder="z. B. makler@agentur.de"
+              />
+            </div>
+
+            <!-- Telefon (optional) -->
+            <div>
+              <label class="block font-medium text-gray-700 mb-1">Telefon</label>
+              <input
+                type="tel"
+                name="telefon"
+                class="w-full border rounded-lg px-3 py-2"
+                placeholder="z. B. +49 170 1234567"
+              />
+            </div>
+
+            <!-- Objektart -->
             <div>
               <label class="block font-medium text-gray-700 mb-1">Objektart *</label>
               <input
                 required
                 type="text"
                 name="objektart"
-                class="w-full border rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-500"
+                class="w-full border rounded-lg px-3 py-2"
                 placeholder="z. B. Wohnung, Haus, Penthouse"
               />
             </div>
 
+            <!-- Vermarktungsart -->
             <div>
               <label class="block font-medium text-gray-700 mb-1">Vermarktungsart *</label>
               <input
@@ -61,6 +100,7 @@
               />
             </div>
 
+            <!-- Adresse -->
             <div>
               <label class="block font-medium text-gray-700 mb-1">Adresse *</label>
               <input
@@ -72,17 +112,19 @@
               />
             </div>
 
+            <!-- Stadtteil -->
             <div>
               <label class="block font-medium text-gray-700 mb-1">Stadtteil *</label>
               <input
                 required
                 type="text"
                 name="stadtteil"
-                class="w-full border rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-500"
+                class="w-full border rounded-lg px-3 py-2"
                 placeholder="z. B. Lapta, Zentrum, Altstadt"
               />
             </div>
 
+            <!-- Zimmer -->
             <div>
               <label class="block font-medium text-gray-700 mb-1">Zimmer *</label>
               <input
@@ -94,6 +136,7 @@
               />
             </div>
 
+            <!-- Etage -->
             <div>
               <label class="block font-medium text-gray-700 mb-1">Etage</label>
               <input
@@ -104,6 +147,7 @@
               />
             </div>
 
+            <!-- Wohnfläche -->
             <div>
               <label class="block font-medium text-gray-700 mb-1">Wohnfläche (m²) *</label>
               <input
@@ -117,6 +161,7 @@
               />
             </div>
 
+            <!-- Grundstück -->
             <div>
               <label class="block font-medium text-gray-700 mb-1">Grundstücksfläche (m²)</label>
               <input
@@ -129,6 +174,21 @@
               />
             </div>
 
+            <!-- Baujahr -->
+            <div>
+              <label class="block font-medium text-gray-700 mb-1">Baujahr</label>
+              <input
+                type="number"
+                name="baujahr"
+                min="1800"
+                max="2100"
+                step="1"
+                class="w-full border rounded-lg px-3 py-2"
+                placeholder="z. B. 2015"
+              />
+            </div>
+
+            <!-- Zustand -->
             <div>
               <label class="block font-medium text-gray-700 mb-1">Zustand *</label>
               <input
@@ -136,31 +196,35 @@
                 type="text"
                 name="zustand"
                 class="w-full border rounded-lg px-3 py-2"
-                placeholder="z. B. neuwertig, luxuriös ausgestattet"
+                placeholder="z. B. neuwertig / luxuriös ausgestattet"
               />
             </div>
+
           </div>
         </section>
 
-        <!-- 2. PREIS & KONDITIONEN -->
+        <!-- SECTION 2: PREIS & KONDITIONEN -->
         <section>
           <h2 class="text-3xl font-bold text-blue-600 mb-6">2. Preis &amp; Konditionen</h2>
 
           <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+
+            <!-- Preis -->
             <div>
               <label class="block font-medium text-gray-700 mb-1">Preis (€) *</label>
               <input
                 required
                 type="number"
                 name="preis"
-                step="1"
                 min="0"
+                step="1"
                 max="999999999"
                 class="w-full border rounded-lg px-3 py-2"
-                placeholder="325000"
+                placeholder="z. B. 325000"
               />
             </div>
 
+            <!-- Nebenkosten -->
             <div>
               <label class="block font-medium text-gray-700 mb-1">Nebenkosten (monatlich)</label>
               <input
@@ -171,6 +235,7 @@
               />
             </div>
 
+            <!-- Verfügbarkeit -->
             <div>
               <label class="block font-medium text-gray-700 mb-1">Verfügbarkeit</label>
               <input
@@ -180,88 +245,106 @@
                 placeholder="z. B. sofort, ab 01.03.2026"
               />
             </div>
+
           </div>
         </section>
 
-        <!-- 3. LAGE & HIGHLIGHTS -->
+        <!-- SECTION 3: LAGE & HIGHLIGHTS -->
         <section>
           <h2 class="text-3xl font-bold text-blue-600 mb-6">3. Lage &amp; Highlights</h2>
-
           <textarea
             name="lage"
             class="w-full border rounded-lg px-4 py-3 h-40 focus:ring-2 focus:ring-blue-500"
-            placeholder="Beschreiben Sie Lage, Umgebung, Highlights usw."
+            placeholder="Beschreiben Sie Lage, Umgebung, Highlights, Infrastruktur, Besonderheiten usw."
           ></textarea>
         </section>
 
-        <!-- 4. KONTAKT & SONSTIGES -->
+        <!-- SECTION 4: ENERGIE & INTERNE NOTIZEN (OPTIONAL) -->
         <section>
-          <h2 class="text-3xl font-bold text-blue-600 mb-6">4. Kontakt &amp; Sonstiges</h2>
+          <h2 class="text-3xl font-bold text-blue-600 mb-6">4. Energie &amp; interne Notizen (optional)</h2>
 
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <!-- Energieausweis-Art -->
             <div>
-              <label class="block font-medium text-gray-700 mb-1">Kontaktperson</label>
-              <input
-                type="text"
-                name="kontaktperson"
+              <label class="block font-medium text-gray-700 mb-1">Energieausweis – Art</label>
+              <select
+                name="energieausweis_art"
                 class="w-full border rounded-lg px-3 py-2"
-                placeholder="z. B. Frau Müller"
+              >
+                <option value="">Bitte wählen</option>
+                <option value="Verbrauchsausweis">Verbrauchsausweis</option>
+                <option value="Bedarfsausweis">Bedarfsausweis</option>
+                <option value="nicht erforderlich">Nicht erforderlich</option>
+              </select>
+            </div>
+
+            <!-- Energiewert -->
+            <div>
+              <label class="block font-medium text-gray-700 mb-1">Energiekennwert (kWh/(m²·a))</label>
+              <input
+                type="number"
+                name="energiewert"
+                min="0"
+                step="1"
+                class="w-full border rounded-lg px-3 py-2"
+                placeholder="z. B. 75"
               />
             </div>
 
+            <!-- Effizienzklasse -->
             <div>
-              <label class="block font-medium text-gray-700 mb-1">Telefon</label>
-              <input
-                type="text"
-                name="telefon"
+              <label class="block font-medium text-gray-700 mb-1">Energieeffizienzklasse</label>
+              <select
+                name="energieeffizienzklasse"
                 class="w-full border rounded-lg px-3 py-2"
-                placeholder="z. B. +49 170 1234567"
-              />
-            </div>
-
-            <div>
-              <label class="block font-medium text-gray-700 mb-1">E-Mail *</label>
-              <input
-                required
-                type="email"
-                name="email"
-                class="w-full border rounded-lg px-3 py-2"
-                placeholder="name@firma.de"
-              />
+              >
+                <option value="">Bitte wählen</option>
+                <option value="A+">A+</option>
+                <option value="A">A</option>
+                <option value="B">B</option>
+                <option value="C">C</option>
+                <option value="D">D</option>
+                <option value="E">E</option>
+                <option value="F">F</option>
+                <option value="G">G</option>
+              </select>
             </div>
           </div>
 
-          <div class="mt-6">
-            <label class="block font-medium text-gray-700 mb-1">Interne Notizen</label>
+          <div class="mt-8">
+            <label class="block font-medium text-gray-700 mb-1">Interne Notizen (nur für Sie)</label>
             <textarea
               name="notizen"
               class="w-full border rounded-lg px-4 py-3 h-32 focus:ring-2 focus:ring-blue-500"
-              placeholder="Interne Hinweise, Besonderheiten, was die KI wissen sollte …"
+              placeholder="Interne Notizen, die nur im E-Mail-Exposé erscheinen – nicht für den Kunden bestimmt."
             ></textarea>
           </div>
         </section>
 
-        <!-- ABSENDEN -->
-        <div class="pt-8">
+        <!-- SUBMIT BUTTON -->
+        <section class="pt-6">
           <button
             type="submit"
             class="w-full bg-blue-600 hover:bg-blue-700 text-white text-xl font-semibold py-4 rounded-lg transition"
           >
             Exposé generieren
           </button>
-        </div>
+        </section>
+
       </form>
 
       <!-- FOOTER -->
       <footer class="bg-gray-50 py-5 border-t">
         <p class="text-center text-gray-500 text-sm">
-          © 2025 KI-Exposé-Generator
+          © 2025 KI-Exposé-Generator – Automatisiert mit n8n &amp; KI
         </p>
       </footer>
+
     </div>
   </div>
 </body>
 </html>
+
 
 
 
