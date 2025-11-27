@@ -2,260 +2,545 @@
 <html lang="de">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>KI-Exposé-Generator</title>
+  <title>KI-Exposé-Generator – Luxus</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
   <style>
+    :root {
+      --primary: #2563eb;
+      --primary-soft: #dbeafe;
+      --bg-page: #020617;
+      --border-soft: rgba(148, 163, 184, 0.7);
+      --text-main: #e5e7eb;
+      --text-muted: #9ca3af;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
     body {
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      background-color: #f5f5f7;
       margin: 0;
-      padding: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+        sans-serif;
+      background: radial-gradient(circle at top, #1d4ed8 0, #020617 45%, #000 100%);
+      color: var(--text-main);
     }
-    .wrapper {
+
+    .page {
+      min-height: 100vh;
+      padding: 40px 16px;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+    }
+
+    .form-wrapper {
+      width: 100%;
       max-width: 960px;
-      margin: 40px auto;
-      background: #ffffff;
-      padding: 32px;
-      border-radius: 10px;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.06);
+      margin: 0 auto;
+      padding: 32px 28px 36px;
+      border-radius: 18px;
+      background: linear-gradient(
+        145deg,
+        rgba(15, 23, 42, 0.97),
+        rgba(15, 23, 42, 0.9)
+      );
+      border: 1px solid rgba(37, 99, 235, 0.5);
+      box-shadow: 0 30px 80px rgba(15, 23, 42, 0.9);
     }
-    h1 {
+
+    .form-header-title {
+      font-size: 1.6rem;
+      font-weight: 650;
+      letter-spacing: 0.03em;
+      margin: 0 0 4px;
+      color: var(--primary-soft);
+    }
+
+    .form-header-sub {
+      margin: 0 0 24px;
+      font-size: 0.95rem;
+      color: var(--text-muted);
+    }
+
+    .section {
+      margin-top: 24px;
+      padding-top: 12px;
+      border-top: 1px solid rgba(31, 41, 55, 0.8);
+    }
+
+    .section:first-of-type {
       margin-top: 0;
-      font-size: 28px;
-      color: #111827;
+      padding-top: 0;
+      border-top: none;
     }
-    h2 {
-      margin-top: 32px;
-      font-size: 20px;
-      color: #111827;
-      border-bottom: 2px solid #e5e7eb;
-      padding-bottom: 6px;
+
+    .section-title {
+      font-size: 1rem;
+      font-weight: 600;
+      margin-bottom: 8px;
+      color: var(--primary-soft);
     }
+
+    .section-subtitle {
+      margin: 0 0 12px;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+
     .grid-2 {
       display: grid;
       grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 16px 24px;
+      gap: 14px;
     }
+
     .field {
-      margin-bottom: 16px;
+      margin-bottom: 12px;
     }
-    label {
+
+    .label {
       display: block;
-      font-weight: 600;
-      font-size: 14px;
-      color: #374151;
+      font-size: 0.85rem;
       margin-bottom: 4px;
+      color: #cbd5f5;
     }
-    input[type="text"],
-    input[type="number"],
-    input[type="email"],
-    input[type="tel"],
-    textarea,
+
+    .label span.required {
+      color: #f97373;
+      margin-left: 2px;
+    }
+
+    .input,
+    .textarea,
     select {
       width: 100%;
-      padding: 10px 12px;
-      border-radius: 6px;
-      border: 1px solid #d1d5db;
-      font-size: 14px;
-      box-sizing: border-box;
+      padding: 9px 10px;
+      border-radius: 8px;
+      border: 1px solid var(--border-soft);
+      background: rgba(15, 23, 42, 0.92);
+      color: var(--text-main);
+      font-size: 0.92rem;
     }
-    textarea {
-      min-height: 90px;
+
+    .textarea {
+      min-height: 80px;
       resize: vertical;
     }
-    .template-select {
-      display: flex;
-      gap: 12px;
-      margin-top: 8px;
+
+    .input::placeholder,
+    .textarea::placeholder {
+      color: rgba(148, 163, 184, 0.9);
     }
-    .template-select label {
-      font-weight: 500;
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      margin-bottom: 0;
+
+    .input:focus,
+    .textarea:focus,
+    select:focus {
+      outline: none;
+      border-color: var(--primary);
+      box-shadow: 0 0 0 1px rgba(37, 99, 235, 0.8);
     }
+
+    .helper-text {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      margin-top: 2px;
+    }
+
     .submit-row {
-      margin-top: 32px;
-      text-align: right;
+      margin-top: 22px;
+      display: flex;
+      justify-content: flex-end;
     }
-    button[type="submit"] {
-      background: #2563eb;
-      color: #ffffff;
-      border: none;
-      padding: 12px 24px;
+
+    .submit-btn {
+      padding: 11px 22px;
       border-radius: 999px;
-      font-size: 15px;
+      border: none;
+      background: linear-gradient(135deg, #2563eb, #38bdf8);
+      color: #fff;
       font-weight: 600;
+      font-size: 0.95rem;
       cursor: pointer;
-      box-shadow: 0 10px 20px rgba(37, 99, 235, 0.3);
+      box-shadow: 0 12px 30px rgba(37, 99, 235, 0.55);
+      transition: transform 0.08s ease, box-shadow 0.08s ease,
+        filter 0.08s ease;
     }
-    button[type="submit"]:hover {
-      background: #1d4ed8;
+
+    .submit-btn:hover {
+      filter: brightness(1.04);
+      box-shadow: 0 16px 36px rgba(37, 99, 235, 0.7);
+      transform: translateY(-1px);
     }
-    .hint {
-      font-size: 12px;
-      color: #6b7280;
-      margin-top: 4px;
+
+    .submit-btn:active {
+      transform: translateY(0);
+      box-shadow: 0 10px 26px rgba(15, 23, 42, 0.8);
     }
-    @media (max-width: 768px) {
-      .wrapper {
-        margin: 16px;
-        padding: 20px;
+
+    @media (max-width: 720px) {
+      .form-wrapper {
+        padding: 20px 16px 24px;
       }
       .grid-2 {
         grid-template-columns: 1fr;
       }
+      .submit-row {
+        justify-content: stretch;
+      }
+      .submit-btn {
+        width: 100%;
+      }
     }
   </style>
 </head>
+
 <body>
-  <div class="wrapper">
-    <h1>KI-Exposé-Generator</h1>
-    <p class="hint">
-      Fülle die wichtigsten Felder aus. Du bekommst das Exposé automatisch als PDF per E-Mail zugeschickt.
-    </p>
-
-    <form method="POST" action="https://xelasrn.app.n8n.cloud/webhook-test/expose-generator">
-      <!-- 1. Objektinformationen -->
-      <h2>1. Objektinformationen</h2>
-      <div class="grid-2">
-        <div class="field">
-          <label for="objektart">Objektart *</label>
-          <input id="objektart" name="objektart" type="text" placeholder="Wohnung, Haus, Gewerbe ..." required />
-        </div>
-        <div class="field">
-          <label for="vermarktungsart">Vermarktungsart *</label>
-          <input id="vermarktungsart" name="vermarktungsart" type="text" placeholder="Vermietung, Verkauf ..." required />
-        </div>
-
-        <div class="field">
-          <label for="adresse">Adresse *</label>
-          <input id="adresse" name="adresse" type="text" placeholder="Straße, Hausnummer, PLZ, Ort" required />
-        </div>
-        <div class="field">
-          <label for="stadtteil">Stadtteil</label>
-          <input id="stadtteil" name="stadtteil" type="text" placeholder="Stadtteil / Lagebezeichnung" />
-        </div>
-
-        <div class="field">
-          <label for="zimmer">Zimmer</label>
-          <input id="zimmer" name="zimmer" type="text" placeholder="z. B. 3,5 Zimmer" />
-        </div>
-        <div class="field">
-          <label for="etage">Etage</label>
-          <input id="etage" name="etage" type="text" placeholder="z. B. 2. OG" />
-        </div>
-
-        <div class="field">
-          <label for="wohnflaeche">Wohnfläche (m²)</label>
-          <input id="wohnflaeche" name="wohnflaeche" type="text" placeholder="z. B. 80" />
-        </div>
-        <div class="field">
-          <label for="grundstuecksflaeche">Grundstücksfläche (m²)</label>
-          <input id="grundstuecksflaeche" name="grundstuecksflaeche" type="text" placeholder="falls relevant" />
-        </div>
-
-        <div class="field">
-          <label for="baujahr">Baujahr</label>
-          <input id="baujahr" name="baujahr" type="text" placeholder="z. B. 1998" />
-        </div>
-        <div class="field">
-          <label for="zustand">Zustand</label>
-          <input id="zustand" name="zustand" type="text" placeholder="z. B. neuwertig, saniert ..." />
-        </div>
-      </div>
-
-      <!-- 2. Preis & Konditionen -->
-      <h2>2. Preis & Konditionen</h2>
-      <div class="grid-2">
-        <div class="field">
-          <label for="preis">Preis (€) *</label>
-          <input id="preis" name="preis" type="text" placeholder="z. B. 1.200 kalt / 450.000 Kaufpreis" required />
-        </div>
-        <div class="field">
-          <label for="nebenkosten">Nebenkosten (optional)</label>
-          <input id="nebenkosten" name="nebenkosten" type="text" placeholder="z. B. Hausgeld, Nebenkosten" />
-        </div>
-
-        <div class="field">
-          <label for="verfuegbar_ab">Verfügbar ab</label>
-          <input id="verfuegbar_ab" name="verfuegbar_ab" type="text" placeholder="z. B. ab sofort, ab 01.02.2026" />
-        </div>
-      </div>
-
-      <!-- 3. Lage & Highlights -->
-      <h2>3. Umgebung & Highlights</h2>
-      <div class="field">
-        <label for="umgebung_highlights">Umgebung / Highlights</label>
-        <textarea id="umgebung_highlights" name="umgebung_highlights" placeholder="Lagebeschreibung, Besonderheiten, Infrastruktur ..."></textarea>
-      </div>
-
-      <!-- 4. Energieausweis -->
-      <h2>4. Energieausweis</h2>
-      <div class="grid-2">
-        <div class="field">
-          <label for="energieausweis_art">Energieausweis-Art</label>
-          <input id="energieausweis_art" name="energieausweis_art" type="text" placeholder="z. B. Verbrauchsausweis" />
-        </div>
-        <div class="field">
-          <label for="energie_wert">Energiewert</label>
-          <input id="energie_wert" name="energie_wert" type="text" placeholder="z. B. 85 kWh/(m²*a)" />
-        </div>
-        <div class="field">
-          <label for="energieeffizienzklasse">Energieeffizienzklasse</label>
-          <input id="energieeffizienzklasse" name="energieeffizienzklasse" type="text" placeholder="z. B. B" />
-        </div>
-      </div>
-
-      <!-- 5. Kontakt -->
-      <h2>5. Kontakt</h2>
-      <div class="grid-2">
-        <div class="field">
-          <label for="kontaktperson">Kontaktperson</label>
-          <input id="kontaktperson" name="kontaktperson" type="text" placeholder="z. B. Max Mustermann" />
-        </div>
-        <div class="field">
-          <label for="telefon">Telefon</label>
-          <input id="telefon" name="telefon" type="tel" placeholder="+49 ..." />
-        </div>
-        <div class="field">
-          <label for="email">E-Mail für den Exposé-Versand *</label>
-          <input id="email" name="email" type="email" placeholder="deine@mailadresse.de" required />
-          <p class="hint">An diese Adresse senden wir das fertige PDF-Exposé.</p>
-        </div>
-      </div>
-
-      <!-- 6. Template-Auswahl -->
-      <h2>6. Exposé-Design</h2>
-      <div class="field">
-        <label>Vorlage auswählen</label>
-        <div class="template-select">
-          <label>
-            <input type="radio" name="template" value="standard" checked />
-            Standard
-          </label>
-          <label>
-            <input type="radio" name="template" value="luxus" />
-            Luxus-Premium
-          </label>
-        </div>
-        <p class="hint">
-          Standard: seriös & klar. Luxus: edles Layout für hochwertige Premium-Objekte.
+  <div class="page">
+    <div class="form-wrapper">
+      <header class="form-header">
+        <h1 class="form-header-title">KI-Exposé-Generator</h1>
+        <p class="form-header-sub">
+          Fülle die wichtigsten Felder aus. Du bekommst dein Luxus-Exposé
+          automatisch als PDF per E-Mail zugeschickt.
         </p>
-      </div>
+      </header>
 
-      <!-- 7. Interne Notizen -->
-      <h2>7. Interne Notizen (nur für dich)</h2>
-      <div class="field">
-        <label for="notizen">Interne Notizen (nur im E-Mail-Text, nicht im Kunden-Exposé)</label>
-        <textarea id="notizen" name="notizen" placeholder="Besondere Hinweise für dich oder dein Team ..."></textarea>
-      </div>
+      <form method="POST" action="https://xelasrn.app.n8n.cloud/webhook/expose-generator">
+        <!-- 1. Objektinformationen -->
+        <section class="section">
+          <h2 class="section-title">1. Objektinformationen</h2>
 
-      <div class="submit-row">
-        <button type="submit">Exposé generieren</button>
-      </div>
-    </form>
+          <div class="grid-2">
+            <div class="field">
+              <label class="label" for="objektart">
+                Objektart<span class="required">*</span>
+              </label>
+              <input
+                id="objektart"
+                name="objektart"
+                class="input"
+                type="text"
+                required
+                placeholder="Wohnung, Haus, Gewerbe …"
+              />
+            </div>
+
+            <div class="field">
+              <label class="label" for="vermarktungsart">
+                Vermarktungsart<span class="required">*</span>
+              </label>
+              <input
+                id="vermarktungsart"
+                name="vermarktungsart"
+                class="input"
+                type="text"
+                required
+                placeholder="Vermietung, Verkauf …"
+              />
+            </div>
+          </div>
+
+          <div class="grid-2">
+            <div class="field">
+              <label class="label" for="adresse">
+                Adresse<span class="required">*</span>
+              </label>
+              <input
+                id="adresse"
+                name="adresse"
+                class="input"
+                type="text"
+                required
+                placeholder="Straße, Hausnummer, PLZ, Ort"
+              />
+            </div>
+
+            <div class="field">
+              <label class="label" for="stadtteil">Stadtteil</label>
+              <input
+                id="stadtteil"
+                name="stadtteil"
+                class="input"
+                type="text"
+                placeholder="Stadtteil / Lagebezeichnung"
+              />
+            </div>
+          </div>
+
+          <div class="grid-2">
+            <div class="field">
+              <label class="label" for="zimmer">Zimmer</label>
+              <input
+                id="zimmer"
+                name="zimmer"
+                class="input"
+                type="text"
+                placeholder="z. B. 3,5 Zimmer"
+              />
+            </div>
+
+            <div class="field">
+              <label class="label" for="etage">Etage</label>
+              <input
+                id="etage"
+                name="etage"
+                class="input"
+                type="text"
+                placeholder="z. B. 2. OG"
+              />
+            </div>
+          </div>
+
+          <div class="grid-2">
+            <div class="field">
+              <label class="label" for="wohnflaeche">
+                Wohnfläche (m²)
+              </label>
+              <input
+                id="wohnflaeche"
+                name="wohnflaeche"
+                class="input"
+                type="number"
+                step="0.01"
+                placeholder="z. B. 80"
+              />
+            </div>
+
+            <div class="field">
+              <label class="label" for="grundstuecksflaeche">
+                Grundstücksfläche (m²)
+              </label>
+              <input
+                id="grundstuecksflaeche"
+                name="grundstuecksflaeche"
+                class="input"
+                type="number"
+                step="0.01"
+                placeholder="falls relevant"
+              />
+            </div>
+          </div>
+
+          <div class="grid-2">
+            <div class="field">
+              <label class="label" for="baujahr">Baujahr</label>
+              <input
+                id="baujahr"
+                name="baujahr"
+                class="input"
+                type="text"
+                placeholder="z. B. 1998"
+              />
+            </div>
+
+            <div class="field">
+              <label class="label" for="zustand">Zustand</label>
+              <input
+                id="zustand"
+                name="zustand"
+                class="input"
+                type="text"
+                placeholder="z. B. neuwertig, saniert …"
+              />
+            </div>
+          </div>
+        </section>
+
+        <!-- 2. Preis & Konditionen -->
+        <section class="section">
+          <h2 class="section-title">2. Preis &amp; Konditionen</h2>
+
+          <div class="grid-2">
+            <div class="field">
+              <label class="label" for="preis">
+                Preis (€)<span class="required">*</span>
+              </label>
+              <input
+                id="preis"
+                name="preis"
+                class="input"
+                type="number"
+                step="0.01"
+                required
+                placeholder="z. B. 750000"
+              />
+            </div>
+
+            <div class="field">
+              <label class="label" for="nebenkosten">Nebenkosten (optional)</label>
+              <input
+                id="nebenkosten"
+                name="nebenkosten"
+                class="input"
+                type="number"
+                step="0.01"
+                placeholder="z. B. 350"
+              />
+            </div>
+          </div>
+
+          <div class="field">
+            <label class="label" for="verfuegbar_ab">Einzug / verfügbar ab</label>
+            <input
+              id="verfuegbar_ab"
+              name="verfuegbar_ab"
+              class="input"
+              type="date"
+            />
+          </div>
+        </section>
+
+        <!-- 3. Umfeld / Highlights -->
+        <section class="section">
+          <h2 class="section-title">3. Umfeld &amp; Besonderheiten</h2>
+          <p class="section-subtitle">
+            Kurze Stichpunkte zur Lage, Infrastruktur und besonderen Merkmalen
+            deiner Immobilie.
+          </p>
+          <div class="field">
+            <label class="label" for="umgebung_highlights">
+              Lage &amp; Besonderheiten
+            </label>
+            <textarea
+              id="umgebung_highlights"
+              name="umgebung_highlights"
+              class="textarea"
+              placeholder="z. B. ruhige Wohnstraße, 5 Gehminuten zur U-Bahn, Schulen und Einkaufsmöglichkeiten in direkter Nähe …"
+            ></textarea>
+          </div>
+        </section>
+
+        <!-- 4. Energie -->
+        <section class="section">
+          <h2 class="section-title">4. Energie</h2>
+          <div class="grid-2">
+            <div class="field">
+              <label class="label" for="energieausweis_art">
+                Energieausweis-Art
+              </label>
+              <input
+                id="energieausweis_art"
+                name="energieausweis_art"
+                class="input"
+                type="text"
+                placeholder="z. B. Verbrauchsausweis"
+              />
+            </div>
+
+            <div class="field">
+              <label class="label" for="energie_wert">
+                Energiewert
+              </label>
+              <input
+                id="energie_wert"
+                name="energie_wert"
+                class="input"
+                type="text"
+                placeholder="z. B. 85 kWh/(m²·a)"
+              />
+            </div>
+          </div>
+
+          <div class="field">
+            <label class="label" for="energieeffizienzklasse">
+              Energieeffizienzklasse
+            </label>
+            <input
+              id="energieeffizienzklasse"
+              name="energieeffizienzklasse"
+              class="input"
+              type="text"
+              placeholder="z. B. B"
+            />
+          </div>
+        </section>
+
+        <!-- 5. Kontakt -->
+        <section class="section">
+          <h2 class="section-title">5. Kontakt</h2>
+          <div class="grid-2">
+            <div class="field">
+              <label class="label" for="kontaktperson">Kontaktperson</label>
+              <input
+                id="kontaktperson"
+                name="kontaktperson"
+                class="input"
+                type="text"
+                placeholder="z. B. Max Mustermann"
+              />
+            </div>
+
+            <div class="field">
+              <label class="label" for="telefon">Telefon</label>
+              <input
+                id="telefon"
+                name="telefon"
+                class="input"
+                type="text"
+                placeholder="+49 …"
+              />
+            </div>
+          </div>
+
+          <div class="field">
+            <label class="label" for="email">
+              E-Mail für den Exposé-Versand<span class="required">*</span>
+            </label>
+            <input
+              id="email"
+              name="email"
+              class="input"
+              type="email"
+              required
+              placeholder="deine@mailadresse.de"
+            />
+            <p class="helper-text">
+              An diese Adresse senden wir das fertige PDF-Exposé.
+            </p>
+          </div>
+        </section>
+
+        <!-- 6. Exposé-Design – nur Luxus -->
+        <section class="section">
+          <h2 class="section-title">6. Exposé-Design</h2>
+
+          <!-- feste Vorgabe: Luxus -->
+          <input type="hidden" name="Vorlage" value="Luxus" />
+
+          <p class="section-subtitle">
+            Dieses Tool nutzt automatisch das
+            <strong>Luxus-Premium-Exposé</strong> mit hochwertigem Layout
+            und modernem PDF-Design.
+          </p>
+        </section>
+
+        <!-- 7. Interne Notizen -->
+        <section class="section">
+          <h2 class="section-title">7. Interne Notizen (nur für dich)</h2>
+          <p class="section-subtitle">
+            Diese Informationen erscheinen nur intern und nicht im
+            Kunden-Exposé.
+          </p>
+          <div class="field">
+            <label class="label" for="notizen">Interne Notizen</label>
+            <textarea
+              id="notizen"
+              name="notizen"
+              class="textarea"
+              placeholder="Besondere Hinweise für dich oder dein Team …"
+            ></textarea>
+          </div>
+        </section>
+
+        <div class="submit-row">
+          <button class="submit-btn" type="submit">
+            Luxus-Exposé erstellen
+          </button>
+        </div>
+      </form>
+    </div>
   </div>
 </body>
 </html>
+
